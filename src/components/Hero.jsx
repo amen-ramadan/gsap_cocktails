@@ -1,13 +1,18 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 
 function Hero() {
+  const videoRef = useRef(null);
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   useGSAP(() => {
     const heroSplit = new SplitText(".title", { type: " chars, words" });
     const paragraphSplit = new SplitText(".subtitle", { type: " lines" });
 
-    heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
+    heroSplit.chars.forEach((chart) => chart.classList.add("text-gradient"));
 
     gsap.from(heroSplit.chars, {
       yPercent: 100,
@@ -36,6 +41,26 @@ function Hero() {
       })
       .to(".right-leaf", { y: 200 }, 0)
       .to(".left-leaf", { y: -200 }, 0);
+
+    const startValue = isMobile ? "top 50%" : "center 60%";
+    const endValue = isMobile ? "120% top" : "bottom top";
+
+    // video animation timeline
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "video",
+        start: startValue,
+        end: endValue,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    videoRef.current.onloadedmetadata = () => {
+      tl.to(videoRef.current, {
+        currentTime: videoRef.current.duration,
+      });
+    };
   }, []);
   return (
     <>
@@ -70,6 +95,17 @@ function Hero() {
               <a href="#cocktails">View Cocktails</a>
             </div>
           </div>
+        </div>
+
+        <div className="video bg-transparent absolute inset-0 mix-blend-screen">
+          <video
+            ref={videoRef}
+            className="bg-transparent"
+            muted
+            playsInline
+            preload="auto"
+            src="/videos/output.mp4"
+          />
         </div>
       </section>
     </>
