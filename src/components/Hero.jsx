@@ -51,7 +51,7 @@ function Hero() {
         trigger: "video",
         start: startValue,
         end: endValue,
-        scrub: true,
+        scrub: 1.5,
         pin: true,
       },
     });
@@ -97,10 +97,9 @@ function Hero() {
           </div>
         </div>
 
-        <div className="video bg-transparent absolute inset-0 mix-blend-screen">
+        <div className="video absolute inset-0.5 mix-blend-screen">
           <video
             ref={videoRef}
-            className="bg-transparent"
             muted
             playsInline
             preload="auto"
