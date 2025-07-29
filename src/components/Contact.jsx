@@ -1,13 +1,11 @@
+import { openingHours, socials } from "../constants/index.js";
 import { useGSAP } from "@gsap/react";
-import { openingHours, socials } from "../constants";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
 
-function Contact() {
+const Contact = () => {
   useGSAP(() => {
-    const titleSplit = SplitText.create("#contact h2", {
-      type: "words",
-    });
+    const titleSplit = SplitText.create("#contact h2", { type: "words" });
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -17,28 +15,33 @@ function Contact() {
       ease: "power1.inOut",
     });
 
-    timeline.from(titleSplit.words, {
-      opacity: 0,
-      duration: 1,
-      yPercent: 100,
-      ease: "expo.out",
-      stagger: 0.02,
-    });
-
     timeline
       .from(titleSplit.words, {
         opacity: 0,
         yPercent: 100,
         stagger: 0.02,
       })
-      .from(".content h3", {
+      .from("#contact h3, #contact p", {
         opacity: 0,
         yPercent: 100,
         stagger: 0.02,
       })
-      .to("#f-right-leaf", { y: -50, duration: 1, ease: "power1.inOut" })
-      .to("#f-left-leaf", { y: 100, duration: 1, ease: "power1.inOut" }, "<");
+      .to("#f-right-leaf", {
+        y: "-50",
+        duration: 1,
+        ease: "power1.inOut",
+      })
+      .to(
+        "#f-left-leaf",
+        {
+          y: "-50",
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        "<"
+      );
   });
+
   return (
     <footer id="contact">
       <img
@@ -77,20 +80,24 @@ function Contact() {
 
         <div>
           <h3>Socials</h3>
-          {socials.map((social) => (
-            <a
-              key={social.name}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={social.icon} alt={social.name} />
-            </a>
-          ))}
+
+          <div className="flex-center gap-5">
+            {socials.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+              >
+                <img src={social.icon} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Contact;
