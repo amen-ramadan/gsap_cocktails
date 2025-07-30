@@ -23,7 +23,7 @@ const Navbar = () => {
     );
   });
   return (
-    <nav>
+    <nav className="md:px-10">
       <div>
         <a className="flex items-center gap-2" href="#home">
           <img src="/images/logo.png" alt="logo" />

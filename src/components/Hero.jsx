@@ -58,9 +58,20 @@ function Hero() {
 
     videoRef.current.onloadedmetadata = () => {
       tl.to(videoRef.current, {
-        currentTime: videoRef.current.duration,
+        currentTime: videoRef.current.duration * 0.8,
       });
     };
+
+    gsap.to(".video", {
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "bottom bottom", // عند نهاية الـ hero
+        end: "bottom+=200 top",
+        scrub: true,
+      },
+      opacity: 0, // أخفِ الفيديو تدريجيًا
+      ease: "power2.out",
+    });
   }, []);
   return (
     <>
@@ -97,7 +108,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="video absolute inset-0.5 mix-blend-screen">
+        <div className="video absolute inset-0.5 mix-blend-screen -z-10">
           <video
             ref={videoRef}
             muted
