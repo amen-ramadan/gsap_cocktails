@@ -53,10 +53,16 @@ function Hero() {
         end: endValue,
         scrub: 1.5,
         pin: true,
+        onLeave: () => {
+          gsap.to(videoRef.current, { autoAlpha: 0, duration: 0.5 });
+        },
+        onEnterBack: () => {
+          gsap.to(videoRef.current, { autoAlpha: 1, duration: 0.5 });
+        },
       },
     });
 
-    videoRef.current.onloadedmetadata = () => {
+    videoRef.current.oncanplaythrough = () => {
       tl.to(videoRef.current, {
         currentTime: videoRef.current.duration,
       });

@@ -41,7 +41,7 @@ function Art() {
   });
   return (
     <div id="art">
-      <div className="container mx-auto h-full pt-20">
+      <div className="container mx-auto h-full pt-20 px-5">
         <h2 className="will-fade">The ART</h2>
 
         <div className="content">
@@ -73,7 +73,7 @@ function Art() {
           <h2 className="will-fade">Sip-Worthy Perfection</h2>
           <div id="masked-content">
             <h3>Made with Craft, Poured with Passion</h3>
-            <p>
+            <p className="px-5">
               This isn't just a drink. it's a carefully crafted moment made just
               for you.
             </p>
